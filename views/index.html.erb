@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Docker Monitor</title>
+  <style>
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #000;
+      text-align: center;
+    }
+
+    .stats-table td, .stats-table th {
+      border: 1px solid #000;
+      padding: 5px 10px;
+    }
+
+    .stats-table tr:nth-child(even) {
+      background-color: #eee; 
+    }
+  </style>
+
+  <script>
+    var reloader = setInterval(() => { location.reload(); }, 3000);
+  </script>
+</head>
+<body>
+  <h1>Currently Running Docker Containers</h1>
+
+  <table class="stats-table">
+    <% @stats.each_with_index do |row, row_num| %>
+      <tr>
+        <% if row_num == 0 %>
+          <% row.each do |col| %>
+            <th scope="col"><%= col %></th>
+          <% end %>
+        <% else %>
+          <% row.each_with_index do |col, col_num| %>
+            <% if col_num == 0 %>
+              <th scope="row"><%= col %></th>
+            <% else %>
+              <td><%= col %></td>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</body>
+</html>
