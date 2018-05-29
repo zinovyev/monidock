@@ -20,30 +20,6 @@
       background-color: #eee; 
     }
   </style>
-
-  <script>
-    var reloadBody = function() {
-      var url = window.location.href;
-      var xhttp = new XMLHttpRequest(); 
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          let bodyTag = document.getElementsByTagName("body")[0];
-          var parser = new DOMParser();
-          var remoteDocument = parser.parseFromString(this.responseText, 'text/html');
-          let remoteBodyTag = remoteDocument.getElementsByTagName("body")[0];
-          bodyTag.innerHTML = remoteBodyTag.innerHTML;
-        }
-      };
-      xhttp.open("GET", url, true);
-      xhttp.send();
-    }
-
-    // Hard reloader
-    var reloader = setInterval(() => { location.reload(); }, 300000);
-
-    // Hard reloader
-    var reloader = setInterval(() => { reloadBody(); }, 3000);
-  </script>
 </head>
 <body>
   <h1>Currently Running Docker Containers (<%= @current_time %>)</h1>
