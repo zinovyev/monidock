@@ -2,6 +2,7 @@ require "erb"
 
 class Application
   def call(env)
+    @current_time = Time.new.strftime("%Y-%m-%d %H:%M:%S")
     @stats = docker_stats
     render :index
   end
@@ -22,11 +23,6 @@ class Application
       template_path = File.absolute_path(templates.first)
       File.read(template_path)
     end
-  end
-
-  def layout(body)
-    <<-HTML
-    HTML
   end
 
   def docker_stats
