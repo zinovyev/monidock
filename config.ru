@@ -1,12 +1,11 @@
 require "./application"
-require "./rack/page_reloader"
+require "rack-refresher"
 
-use Rack::PageReloader do |config|
+use Rack::Refresher do |config|
   config.interval = 30000
 end
 
-use Rack::PageReloader do |config|
-  config.interval = 1000
+use Rack::Refresher do |config|
   config.ajax     = true
 end
 

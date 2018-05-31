@@ -1,6 +1,7 @@
 require "erb"
 
 class Application
+
   def call(env)
     @current_time = Time.new.strftime("%Y-%m-%d %H:%M:%S")
     @stats = docker_stats
@@ -29,6 +30,7 @@ class Application
     io = IO.popen("docker stats --no-stream", "r")
     rows = io.read.split(/\n/).map { |row| row.split(/\s{3,}/) }
     rows.each { |row| row[0], row[1] = row[1], row[0] }
+    io.close
     rows
   end
 end

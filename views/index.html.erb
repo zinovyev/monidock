@@ -22,7 +22,7 @@
   </style>
 </head>
 <body>
-  <h1>Currently Running Docker Containers (<%= @current_time %>)</h1>
+  <h1>Currently Running Docker Containers <small style="float: right"><%= @current_time %></small></h1>
 
   <table class="stats-table">
     <% @stats.each_with_index do |row, row_num| %>
