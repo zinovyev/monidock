@@ -1,20 +1,32 @@
 require "erb"
+require "./docker"
+require "./helper"
 
 class Application
+  include Helper
 
   def call(env)
-    @current_time = Time.new.strftime("%Y-%m-%d %H:%M:%S")
-    @stats = docker_stats
-    render :index
+    current_time = Time.new.strftime("%Y-%m-%d %H:%M:%S")
+    render :index, locals: {
+      containers: docker.containers,
+      current_time: current_time,
+      networks: docker.ls_networks
+    }
   end
 
   private
 
-  def render(view)
+  def render(view, options)
     template = load_view(view)
     erb = ERB.new(template)
+    binding = get_binding
+    bind_locals(binding, options[:locals])
     body = erb.result(binding)
     ["200", { "Content-Type" => "text/html" }, [body]]
+  end
+
+  def bind_locals(binding, locals)
+    locals.each { |var, val| binding.local_variable_set(var, val) }
   end
 
   def load_view(view)
@@ -26,11 +38,11 @@ class Application
     end
   end
 
-  def docker_stats
-    io = IO.popen("docker stats --no-stream", "r")
-    rows = io.read.split(/\n/).map { |row| row.split(/\s{3,}/) }
-    rows.each { |row| row[0], row[1] = row[1], row[0] }
-    io.close
-    rows
+  def get_binding
+    binding
+  end
+
+  def docker
+    @_docker ||= Docker.new
   end
 end

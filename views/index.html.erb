@@ -22,26 +22,46 @@
   </style>
 </head>
 <body>
-  <h1>Currently Running Docker Containers <small style="float: right"><%= @current_time %></small></h1>
+  <h1>Containers <small style="float: right"><%= @current_time %></small></h1>
 
   <table class="stats-table">
-    <% @stats.each_with_index do |row, row_num| %>
+    <thead>
       <tr>
-        <% if row_num == 0 %>
-          <% row.each do |col| %>
-            <th scope="col"><%= col %></th>
-          <% end %>
-        <% else %>
-          <% row.each_with_index do |col, col_num| %>
-            <% if col_num == 0 %>
-              <th scope="row"><%= col %></th>
-            <% else %>
-              <td><%= col %></td>
-            <% end %>
-          <% end %>
-        <% end %>
+        <th scope="col">Name</th>
+        <th scope="col">Container ID</th>
+        <th scope="col">CPU %</th>
+        <th scope="col">Mem Usage / Limit</th>
+        <th scope="col">Mem %</th>
+        <th scope="col">Net I/O</th>
+        <th scope="col">Block I/O</th>
+        <th scope="col">PIDS</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% containers.each_with_index do |container| %>
+        <tr>
+          <th scope="row"><%= container.name %></th>
+          <td><%= container.id %></td>
+          <td><%= container.cpu_percent %></td>
+          <td><%= container.mem_usage_limit %></td>
+          <td><%= container.mem_percent %></td>
+          <td><%= container.net_io %></td>
+          <td><%= container.block_io %></td>
+          <td><%= container.pids %></td>
+        </tr>
+      <% end %> 
+    </tbody>
   </table>
+
+  <h1>Processes</h1>
+
+  <% containers.each do |container| %>
+    <h2><%= container.name %></h2>
+    <%= draw_matrix_as_table(container.top) %>
+  <% end %>
+
+  <h1>Networks</h1>
+
+  <%= draw_matrix_as_table(networks) %>
 </body>
 </html>
