@@ -1,7 +1,10 @@
 # monidock
+
 Lightweight docker monitoring tool
 
-# Run on your host
+![Monidock monitor screen](doc/monitor.png)
+
+## Run on your host
 
 ```bash
 
@@ -15,7 +18,7 @@ bundle exec rake start # `stop` and `status` commands are also available
 
 ```
 
-# Run in container
+## Run in container
 
 
 ```bash
