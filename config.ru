@@ -2,8 +2,8 @@ require "./application"
 require "rack-refresher"
 
 use Rack::Auth::Basic, "Protected Area" do |username, password|
-  username == ENV.fetch("MONIT_NAME", "monit") &&
-    password == ENV.fetch("MONIT_PASSWORD", "secret")
+  username == ENV.fetch("MON_NAME", "monit") &&
+    password == ENV.fetch("MON_PASSWORD", "secret")
 end
 
 use Rack::Refresher do |config|
