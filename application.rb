@@ -5,7 +5,7 @@ require "./helper"
 class Application
   include Helper
 
-  def call(env)
+  def call(_env)
     current_time = Time.new.strftime("%Y-%m-%d %H:%M:%S")
     render :index, locals: {
       containers: docker.containers,
