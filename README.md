@@ -10,11 +10,11 @@ Lightweight docker monitoring tool build on Rack
 
 * Lightweight tool dynamically shows the stats of your running conainers:
 
-* No complex dependencies are needed. The tool is Built upon docker client and rack web server;
+* No complex dependencies needed. The tool is built upon a docker client and a rack web server;
 
 * Easy to install and to use. Can be launched in both: on-host and containerized mode.
 
-* Base HTTP Auth available. The credentials can be configured throught environment variables.
+* Base HTTP Auth available. The credentials can be configured via environment variables.
 
 
 ## Run on your host
