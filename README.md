@@ -4,7 +4,22 @@ Lightweight docker monitoring tool build on Rack
 
 ![Monidock monitor screen](doc/monitor.png)
 
+
+## Features
+
+
+* Lightweight tool dynamically shows the stats of your running conainers:
+
+* No complex dependencies are needed. The tool is Built upon docker client and rack web server;
+
+* Easy to install and to use. Can be launched in both: on-host and containerized mode.
+
+* Base HTTP Auth available. The credentials can be configured throught environment variables.
+
+
 ## Run on your host
+
+**Dependencies**: ruby, docker
 
 ```bash
 
@@ -12,13 +27,17 @@ git clone git@github.com:zinovyev/monidock.git monidock
 
 cd monidock
 
+gem install bundler
+
 bundle install
 
 bundle exec rake start # `stop` and `status` commands are also available
 
 ```
 
-Remember to change username and password for basic auth. The values can be set by exporting the environment vairables:
+Always remember to change username and password when running in production.
+
+The values can be configured via environment vairables:
 
 * `MON_NAME` for username (the default value is `monit`);
 
@@ -27,6 +46,7 @@ Remember to change username and password for basic auth. The values can be set b
 
 ## Run in container
 
+**Dependencies**: docker
 
 ```bash
 
